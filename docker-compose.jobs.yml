@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  flinkkafkademo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - src/main/resources/.env.example
+    environment:
+      KAFKA_HOST: "kafka"
+      KAFKA_PORT: "29092"
+    entrypoint: "sbt run"
+    networks:
+      - flink-kafka-kubernetes-example_kafka
+
+networks:
+  flink-kafka-kubernetes-example_kafka:
+    # Use a custom driver
+    external: true
